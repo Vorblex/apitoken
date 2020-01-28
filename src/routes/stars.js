@@ -1,16 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const { Star } = require('src/models')
+const StarsController = require('src/controllers/stars')
 
-router.get('/', (req, res) => {
+router.get('/', StarsController.getStars)
 
-  Star.find({}, (err, data) => {
-    const result = data.map(el => {
-      return `<h3>${el.title}</h3>`
-    })
- 
-    res.send('<h1>Stars page</h1>' + result.join(''))
-  })
-})
-
- module.exports = router
+module.exports = router

@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
   console.log(mongoose.models);
   let result = '<h1>Main page</h1><h2>There is next categories:</h2>'
   for(let model in mongoose.models) {
-    result += `<h3 style="text-transform: capitalize;">${model}s</h3>`
+    result += `<h3 style="text-transform: capitalize;"><a href="${model}s">${model}s</a></h3>`
   }
 
   res.send(result)
