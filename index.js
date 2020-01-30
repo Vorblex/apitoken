@@ -1,19 +1,12 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const cors = require('cors')
-const morgan = require('morgan')
 const config = require('config')
 
-// const { Starship } = require('src/models')
+const app = config.express(express())
 
-const app = express()
-
-app.use(morgan('combined'))
-app.use(express.json())
-app.use(cors())
-
-app.use('/stars', require('./routes/stars'))
-app.use('/starships', require('./routes/starships'))
+app.use('/stars', require('src/routes/stars'))
+app.use('/starships', require('src/routes/starships'))
+app.use('/signin', require('src/routes/users'))
 
 app.get('/', (req, res) => {
   console.log(mongoose.models);
@@ -25,12 +18,12 @@ app.get('/', (req, res) => {
   res.send(result)
 })
 
-mongoose.connect(config.dbUrl, config.dbOptions)
+mongoose.connect(config.app.dbUrl, config.app.dbOptions)
 
 mongoose.connection.once('open', () => {
   console.log(`Mongoose - successful connection ...`)
 
-  app.listen(process.env.PORT || config.port, () => {
-    console.log(`Server started on port ${config.port}`);
+  app.listen(process.env.PORT || config.app.port, () => {
+    console.log(`Server started on port ${config.app.port}`);
   })
 }).on('error', error => console.warn(error));
