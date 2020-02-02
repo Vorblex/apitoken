@@ -1,12 +1,13 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const config = require('config')
+const authMiddleware = require('src/middleware/auth')
 
 const app = config.express(express())
 
-app.use('/stars', require('src/routes/stars'))
-app.use('/starships', require('src/routes/starships'))
-app.use('/signin', require('src/routes/users'))
+app.use('/stars', authMiddleware, require('src/routes/stars'))
+app.use('/starships', authMiddleware, require('src/routes/starships'))
+app.use('/signin', require('src/routes/auth'))
 
 app.get('/', (req, res) => {
   console.log(mongoose.models);
