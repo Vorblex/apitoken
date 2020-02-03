@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_PATH=. nodemon --ext js --watch src --watch index.js"
+    "start": "cross-env NODE_PATH=. node -r dotenv/config index.js nodemon --ext js --watch src --watch index.js"
   },
   "keywords": [],
   "author": "",
